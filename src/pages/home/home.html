@@ -1,14 +1,36 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content class="card-background-page">
+  <ion-card *ngIf="showAuth">
+    <img src="assets/img/login.jpg" />
+    <div class="card-title">Authenticate</div>
+    <div class="card-subtitle">Click below to authenticate using your fingerprint.</div>
+    <ion-row no-padding class="card-input">
+      <ion-col text-center>
+        <button ion-button large round icon-only color="primary" (click)="doAuth()">
+          <ion-icon name='md-finger-print'></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  <ion-card *ngIf="showLogin">
+    <img src="assets/img/login.jpg" />
+    <div class="card-title">Login</div>
+    <div class="card-subtitle">Login using Qkr! credentials.</div>
+    <ion-row no-padding class="card-input">
+      <ion-col text-center>
+        <ion-list>
+          <ion-item>
+            <ion-label floating>Username</ion-label>
+            <ion-input type="text" [(ngModel)]="credentials.email" placeholder="Username"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Password</ion-label>
+            <ion-input type="password" [(ngModel)]="credentials.pwd" placeholder="Password"></ion-input>
+          </ion-item>
+        </ion-list>
+        <div padding>
+          <button ion-button color="primary" block (click)="doLogin()">Sign In</button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 </ion-content>

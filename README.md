@@ -1,26 +1,11 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+# Simple Mobile App using Mastercard Qkr! APIs #
+Uses the [node-qkr-api-server](https://github.com/perusworld/node-qkr-api-server) to call Qkr! APIs. This implementation allows browsing for products(by default the first merchant, first menu, first product variant would be selected), add them to a cart and then checkout.
 
-## How to use this template
+ If you are looking to call Qkr! APIs directly then head over to [node-qkr-api](https://github.com/perusworld/node-qkr-api)
+ 
 
-*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
-
-To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/ionic-team/ionic2-app-base).
-
-### With the Ionic CLI:
-
-Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
-
-```bash
-$ sudo npm install -g ionic cordova
-$ ionic start myBlank blank
-```
-
-Then, to run it, cd into `myBlank` and run:
-
-```bash
-$ ionic cordova platform add ios
-$ ionic cordova run ios
-```
-
-Substitute ios for android if not on a Mac.
+## Run ##
+ * Start [node-qkr-api-server](https://github.com/perusworld/node-qkr-api-server)
+ * set that as the API endpoint in [config-service.ts](./src/providers/config-service/config-service.ts), right now it is pointing to [http://localhost:3000/api/v1/](http://localhost:3000/api/v1/)
+ * ionic serve
 

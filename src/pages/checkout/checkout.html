@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar hideBackButton="true">
+    <ion-title>Checkout</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="cartList()" color="primary">
+        <ion-icon name="cart"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="checkout()" color="secondary">
+        <ion-icon name="ios-checkmark-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let prod of cart.cartItems">
+      <ion-avatar item-start>
+        <img [src]="prod.imageUrl">
+      </ion-avatar>
+      <h2>{{prod.quantity}} * {{prod.productName}}</h2>
+      <ion-note item-end color="secondary">{{prod.totalAmount/100 | currency:'USD':true}}</ion-note>
+    </ion-item>
+    <ion-item-divider color="light" *ngIf="cart.cartTotalTax">
+      Tax
+      <ion-note item-end color="secondary">{{cart.cartTotalTax/100 | currency:'USD':true}}</ion-note>
+    </ion-item-divider>
+    <ion-item-divider color="light" *ngIf="cart.amountMinorUnits">
+      Total
+      <ion-note item-end color="secondary">{{cart.amountMinorUnits/100 | currency:'USD':true}}</ion-note>
+    </ion-item-divider>
+  </ion-list>
+</ion-content>

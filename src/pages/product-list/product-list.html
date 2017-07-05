@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar hideBackButton="true">
+    <ion-title>{{menu.merchantName}} Menu</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="cartList()" color="primary">
+        <ion-icon name="cart"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let prod of menu.products" (click)="addProduct(prod)">
+      <ion-thumbnail item-start>
+        <img [src]="prod.mediumImageUrl">
+      </ion-thumbnail>
+      <h2>{{prod.name}}</h2>
+      <p>{{prod.smallDescription}}</p>
+      <ion-note item-end color="secondary">{{prod.variants[0].amountMinorUnits/100 | currency:'USD':true}}</ion-note>
+    </ion-item>
+  </ion-list>
+</ion-content>
