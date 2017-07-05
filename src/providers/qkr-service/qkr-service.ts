@@ -71,9 +71,19 @@ export class QkrServiceProvider {
     });
   }
 
+  public checkout(authToken: any, req: any): Promise<any> {
+    return this.send({
+      endpoint: 'cart/checkout',
+      request: {
+        token: authToken.accessToken.token,
+        request: req
+      }
+    });
+  }
+
   public cards(authToken: any): Promise<any> {
     return this.send({
-      endpoint: 'cards/list',
+      endpoint: 'card/list',
       request: {
         token: authToken.accessToken.token
       }
