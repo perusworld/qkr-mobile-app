@@ -9,3 +9,5 @@ If you are looking to call Qkr! APIs directly then head over to [node-qkr-api](h
  * set that as the API endpoint in [config-service.ts](./src/providers/config-service/config-service.ts), right now it is pointing to [http://localhost:3000/api/v1/](http://localhost:3000/api/v1/)
  * ionic serve
 
+### Demo Video ###
+[![qkr-mobile-app - Qkr Cart Checkout Demo Video](https://img.youtube.com/vi/_RvluBW2K8s/3.jpg)](https://youtu.be/_RvluBW2K8s)
