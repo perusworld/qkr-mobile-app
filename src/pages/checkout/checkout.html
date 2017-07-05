@@ -5,7 +5,7 @@
       <button ion-button icon-only (click)="cartList()" color="primary">
         <ion-icon name="cart"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="checkout()" color="secondary">
+      <button ion-button icon-only (click)="checkout()" color="secondary" *ngIf="paymentEnabled">
         <ion-icon name="ios-checkmark-circle"></ion-icon>
       </button>
     </ion-buttons>
@@ -20,6 +20,10 @@
       <h2>{{prod.quantity}} * {{prod.productName}}</h2>
       <ion-note item-end color="secondary">{{prod.totalAmount/100 | currency:'USD':true}}</ion-note>
     </ion-item>
+    <ion-item-divider color="light" *ngIf="card.alias">
+      Payment
+      <ion-note item-end color="primary">{{card.alias}}({{card.maskedPan}})</ion-note>
+    </ion-item-divider>
     <ion-item-divider color="light" *ngIf="cart.cartTotalTax">
       Tax
       <ion-note item-end color="secondary">{{cart.cartTotalTax/100 | currency:'USD':true}}</ion-note>
