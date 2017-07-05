@@ -13,7 +13,6 @@ import { HomePage } from '../pages/home/home';
 import { CartPage } from '../pages/cart/cart';
 import { CheckoutPage } from '../pages/checkout/checkout';
 import { ProductListPage } from '../pages/product-list/product-list';
-import { ReceiptPage } from '../pages/receipt/receipt';
 
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { PrefServiceProvider, MockPrefServiceProvider } from '../providers/pref-service/pref-service';
@@ -26,8 +25,7 @@ import { ConfigServiceProvider } from '../providers/config-service/config-servic
     HomePage,
     CartPage,
     CheckoutPage,
-    ProductListPage,
-    ReceiptPage
+    ProductListPage
   ],
   imports: [
     BrowserModule,
@@ -40,8 +38,7 @@ import { ConfigServiceProvider } from '../providers/config-service/config-servic
     HomePage,
     CartPage,
     CheckoutPage,
-    ProductListPage,
-    ReceiptPage
+    ProductListPage
   ],
   providers: [
     StatusBar,
