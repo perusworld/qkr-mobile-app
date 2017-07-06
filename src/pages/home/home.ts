@@ -25,7 +25,7 @@ export class HomePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Home');
-    this.cfg.presentLoading('Processing').then(resp => {
+    this.cfg.presentLoading('Loading ...').then(resp => {
       return this.auth.hasAccount();
     }).then(status => {
       if (status) {
@@ -38,6 +38,7 @@ export class HomePage {
       this.cfg.hideLoading();
     }).catch(err => {
       console.error(err);
+      this.cfg.showAlert('Initialization Failed!', JSON.stringify(err, null, 2));
     });
   }
 
@@ -78,6 +79,9 @@ export class HomePage {
     }).catch(err => {
       console.error(err);
       this.cfg.showAlert('Authentication Failed!', JSON.stringify(err, null, 2));
+      this.credentials.pwd = '';
+      this.showAuth = false;
+      this.showLogin = true;
     });
   }
 
