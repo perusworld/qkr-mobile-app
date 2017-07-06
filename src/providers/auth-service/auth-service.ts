@@ -31,9 +31,9 @@ export class AuthServiceProvider {
    */
   public hasAccount(): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      this.prefs.getPref<any>(AuthServiceProvider.TOKEN_NAME).then(token => {
-        let has = null != token && token.accessToken && token.accessToken.token;
-        if (!has) { this.authToken = null; }
+      this.prefs.getPref<any>(AuthServiceProvider.TOKEN_NAME).then(credentials => {
+        let has = null != credentials && credentials.email && credentials.pwd;
+        this.authToken = null;
         resolve(has);
       }).catch(err => {
         resolve(false);
@@ -90,10 +90,11 @@ export class AuthServiceProvider {
               });
           }
         }).then(resp => {
-          console.log('fingerprint success', resp);
           return this.prefs.getPref<any>(AuthServiceProvider.TOKEN_NAME);
         }).then(resp => {
           return this.login(resp);
+        }).then(resp => {
+          resolve(resp);
         }).catch(err => {
           console.log(err);
           reject({
