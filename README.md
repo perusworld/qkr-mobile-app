@@ -15,5 +15,8 @@ If you are looking to call Qkr! APIs directly then head over to [node-qkr-api](h
 ionic cordova run android --device
 ```
 
-### Demo Video ###
+## Demo Video ##
+### Mobile Web ###
 [![qkr-mobile-app - Qkr Cart Checkout Demo Video](https://img.youtube.com/vi/_RvluBW2K8s/3.jpg)](https://youtu.be/_RvluBW2K8s)
+### Android ###
+[![qkr-mobile-app - Qkr Cart Checkout Demo Video - Android](https://img.youtube.com/vi/8gjkrQB-j3M/2.jpg)](https://youtu.be/8gjkrQB-j3M)
