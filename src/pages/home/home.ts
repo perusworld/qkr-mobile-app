@@ -22,12 +22,15 @@ export class HomePage {
   };
 
   private eventParams: string[] = null;
+  private initialized = false;
 
   constructor(public navCtrl: NavController, private auth: AuthServiceProvider, private cfg: ConfigServiceProvider, private nfc: NfcServiceProvider) {
     console.log('Home Controller');
     this.nfc.onMsg.subscribe((msg) => {
       this.eventParams = msg.split(':');
-      this.checkAuth();
+      if (this.initialized) {
+        this.checkAuth();
+      }
     });
   }
 
@@ -49,6 +52,9 @@ export class HomePage {
       } else {
         this.showAuth = false;
         this.showLogin = true;
+      }
+      if (!this.initialized) {
+        this.initialized = true;
       }
       this.cfg.hideLoading();
     }).catch(err => {
