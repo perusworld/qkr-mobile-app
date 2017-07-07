@@ -36,8 +36,8 @@ Tag | Meta Data |
 *Yellow Tag* | `add-item:<orange's-variant-id>:2` |
 *Green Tag* | `add-item:<coffee's-variant-id>:1` |
 
-## Demo Video ##
-### Mobile Web ###
-[![qkr-mobile-app - Qkr Cart Checkout Demo Video](https://img.youtube.com/vi/_RvluBW2K8s/3.jpg)](https://youtu.be/_RvluBW2K8s)
-### Android ###
-[![qkr-mobile-app - Qkr Cart Checkout Demo Video - Android](https://img.youtube.com/vi/8gjkrQB-j3M/2.jpg)](https://youtu.be/8gjkrQB-j3M)
+## Demo Videos ##
+
+Mobile Web | Android | Android - NFC |
+--- | --- | --- |
+[![qkr-mobile-app - Qkr Cart Checkout Demo Video](https://img.youtube.com/vi/_RvluBW2K8s/3.jpg)](https://youtu.be/_RvluBW2K8s) | [![qkr-mobile-app - Qkr Cart Checkout Demo Video - Android](https://img.youtube.com/vi/8gjkrQB-j3M/2.jpg)](https://youtu.be/8gjkrQB-j3M) | [![qkr-mobile-app - Qkr Cart Checkout Demo Video - Android - NFC](https://img.youtube.com/vi/0lRlHb4ZSR8/2.jpg)](https://youtu.be/0lRlHb4ZSR8) |
