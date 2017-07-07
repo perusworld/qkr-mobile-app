@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { QkrServiceProvider } from '../../providers/qkr-service/qkr-service';
+import { QkrCheckoutServiceProvider } from '../../providers/qkr-checkout-service/qkr-checkout-service';
 import { ConfigServiceProvider } from '../../providers/config-service/config-service';
 
 import { CartPage } from '../cart/cart';
@@ -17,7 +17,9 @@ export class CheckoutPage {
   public cart: any = {};
   public card: any = {};
   public paymentEnabled = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private qkr: QkrServiceProvider, private auth: AuthServiceProvider, private cfg: ConfigServiceProvider) {
+  private params: any = null;;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private qkrCheckout: QkrCheckoutServiceProvider, private auth: AuthServiceProvider, private cfg: ConfigServiceProvider) {
+    this.params = navParams.data;
   }
 
   ionViewDidLoad() {
@@ -31,21 +33,15 @@ export class CheckoutPage {
  */
   public loadCart() {
     this.cfg.presentLoading('Loading ...').then(resp => {
-      return this.qkr.carts(this.auth.authToken);
+      return this.qkrCheckout.getDefaultCheckout();
     }).then(resp => {
-      if (0 < resp.length) {
-        this.cart = resp[0];
-        return this.qkr.cards(this.auth.authToken);
-      } else {
-        throw 'Empty Cart';
-      }
-    }).then(resp => {
-      if (0 < resp.length) {
-        this.card = resp[0];
+      if (resp.cart) {
+        this.cart = resp.cart;
+        this.card = resp.card;
         this.paymentEnabled = true;
         this.cfg.hideLoading();
       } else {
-        throw 'No Card';
+        throw resp.err;
       }
     }).catch(err => {
       console.error(err);
@@ -67,12 +63,7 @@ export class CheckoutPage {
    */
   public checkout() {
     this.cfg.presentLoading('Processing ...').then(resp => {
-      return this.qkr.checkout(this.auth.authToken, {
-        amountMinorUnits: this.cart.amountMinorUnits,
-        cardId: this.card.id,
-        cartId: this.cart.cartId,
-        tipAmount: 0
-      });
+      return this.qkrCheckout.checkout(this.card, this.cart);
     }).then(status => {
       this.paymentEnabled = false;
       return this.cfg.showAlert('Checkout completed successfuly!', `${status.thankYouMessage} this is your reference number ${status.ref}`)
