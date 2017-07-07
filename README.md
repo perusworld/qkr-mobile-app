@@ -3,7 +3,6 @@ Uses the [node-qkr-api-server](https://github.com/perusworld/node-qkr-api-server
 
 If you are looking to call Qkr! APIs directly then head over to [node-qkr-api](https://github.com/perusworld/node-qkr-api)
  
-
 ## Run ##
  * Start [node-qkr-api-server](https://github.com/perusworld/node-qkr-api-server)
  * set that as the API endpoint in [config-service.ts](./src/providers/config-service/config-service.ts), right now it is pointing to [http://localhost:3000/api/v1/](http://localhost:3000/api/v1/)
@@ -14,6 +13,19 @@ If you are looking to call Qkr! APIs directly then head over to [node-qkr-api](h
 ```bash
 ionic cordova run android --device
 ```
+
+## nfc (Android) ##
+There is an implementation of nfc based checkin/add item/checkout flow as well. This works on android for now. Inorder to build this. Just add the following code block to the **./platforms/android/AndroidManifest.xml** file (inside manifest->application->activity)
+```xml
+<intent-filter>
+    <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <data android:mimeType="text/qkrnfc" />
+</intent-filter>
+```
+For this demo the following tags were used 
+[![qkr-mobile-app - nfc demo tags](./src/assets/img/tags.png)](./src/assets/img/tags.png)
+
 
 ## Demo Video ##
 ### Mobile Web ###
