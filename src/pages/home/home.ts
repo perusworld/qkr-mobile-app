@@ -3,8 +3,10 @@ import { NavController } from 'ionic-angular';
 
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { ConfigServiceProvider } from '../../providers/config-service/config-service';
+import { NfcServiceProvider } from '../../providers/nfc-service/nfc-service';
 
 import { CartPage } from '../cart/cart';
+import { CheckoutPage } from '../checkout/checkout';
 
 @Component({
   selector: 'page-home',
@@ -19,12 +21,28 @@ export class HomePage {
     pwd: ''
   };
 
-  constructor(public navCtrl: NavController, private auth: AuthServiceProvider, private cfg: ConfigServiceProvider) {
+  private eventParams: string[] = null;
+  private initialized = false;
+
+  constructor(public navCtrl: NavController, private auth: AuthServiceProvider, private cfg: ConfigServiceProvider, private nfc: NfcServiceProvider) {
     console.log('Home Controller');
+    this.nfc.onMsg.subscribe((msg) => {
+      this.eventParams = msg.split(':');
+      if (this.initialized) {
+        this.checkAuth();
+      }
+    });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Home');
+    this.initAuth();
+  }
+
+  /**
+   * initAuth
+   */
+  public initAuth() {
     this.cfg.presentLoading('Loading ...').then(resp => {
       return this.auth.hasAccount();
     }).then(status => {
@@ -35,11 +53,53 @@ export class HomePage {
         this.showAuth = false;
         this.showLogin = true;
       }
+      if (!this.initialized) {
+        this.initialized = true;
+      }
       this.cfg.hideLoading();
     }).catch(err => {
       console.error(err);
-      this.cfg.showAlert('Initialization Failed!', JSON.stringify(err, null, 2));
+      this.cfg.hideLoading().then(resp => {
+        this.cfg.showAlert('Initialization Failed!', JSON.stringify(err, null, 2));
+      });
     });
+  }
+
+  /**
+   * checkAuth
+   */
+  public checkAuth() {
+    if (this.auth.hasAuthenticated()) {
+      this.onAuth();
+    } else {
+      this.initAuth();
+    }
+  }
+
+  /**
+   * onAuth
+   */
+  public onAuth() {
+    if (this.eventParams) {
+      let params = this.eventParams;
+      this.eventParams = null;
+      switch (params[0]) {
+        case 'check-in':
+          this.navCtrl.push(CartPage, { checkin: true });
+          break;
+        case 'check-out':
+          this.navCtrl.push(CheckoutPage, { checkout: true });
+          break;
+        case 'add-item':
+          this.navCtrl.push(CartPage, { addItem: { id: params[1], qty: Number.parseInt(params[2]) } });
+          break;
+        default:
+          console.error('Unknown command', params[0]);
+          break;
+      }
+    } else {
+      this.navCtrl.push(CartPage, {});
+    }
   }
 
   /**
@@ -52,11 +112,7 @@ export class HomePage {
       }).then(resp => {
         if (resp.status) { return this.cfg.hideLoading() } else { throw resp }
       }).then(status => {
-        if (status) { return this.cfg.showAlert('Authentication Success!', "") } else { throw 'Failed to clear progress' }
-      }).then(status => {
-        if (status) { return this.navCtrl.push(CartPage, {}) } else { throw 'Failed to initialize progress again' }
-      }).then(resp => {
-        //NOOP
+        if (status) { this.onAuth() } else { throw 'Failed to clear progress' }
       }).catch(err => {
         console.log(err);
         this.cfg.hideLoading().then(resp => {
@@ -71,11 +127,7 @@ export class HomePage {
    */
   public doAuth() {
     this.auth.auth().then(resp => {
-      if (resp.status) { return this.cfg.showAlert('Authentication Success!', "") } else { throw resp }
-    }).then(status => {
-      if (status) { return this.navCtrl.push(CartPage, {}) } else { throw 'Failed to initialize progress again' }
-    }).then(resp => {
-      console.log(resp);
+      if (resp.status) { this.onAuth() } else { throw resp }
     }).catch(err => {
       console.error(err);
       this.cfg.showAlert('Authentication Failed!', JSON.stringify(err, null, 2));
