@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
 import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth';
 import { SecureStorage } from "@ionic-native/secure-storage";
+import { NFC, Ndef } from '@ionic-native/nfc';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -18,6 +19,8 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { PrefServiceProvider, MockPrefServiceProvider } from '../providers/pref-service/pref-service';
 import { QkrServiceProvider } from '../providers/qkr-service/qkr-service';
 import { ConfigServiceProvider } from '../providers/config-service/config-service';
+import { NfcServiceProvider } from '../providers/nfc-service/nfc-service';
+import { QkrCheckoutServiceProvider } from '../providers/qkr-checkout-service/qkr-checkout-service';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,7 @@ import { ConfigServiceProvider } from '../providers/config-service/config-servic
     StatusBar,
     SplashScreen,
     { provide: 'APP_NAME', useValue: 'qkr-mobile-app' },
+    { provide: 'NFC_TAG_NAME', useValue: 'text/qkrnfc' },
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AndroidFingerprintAuth,
     SecureStorage,
@@ -51,7 +55,11 @@ import { ConfigServiceProvider } from '../providers/config-service/config-servic
     PrefServiceProvider,
     MockPrefServiceProvider,
     QkrServiceProvider,
-    ConfigServiceProvider
+    ConfigServiceProvider,
+    NFC,
+    Ndef,
+    NfcServiceProvider,
+    QkrCheckoutServiceProvider
   ]
 })
 export class AppModule { }
