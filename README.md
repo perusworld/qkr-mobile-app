@@ -26,6 +26,13 @@ There is an implementation of nfc based checkin/add item/checkout flow as well. 
 For this demo the following tags were used 
 [![qkr-mobile-app - nfc demo tags](./src/assets/img/tags.png)](./src/assets/img/tags.png)
 
+The tags each have the content type as **text/qkrnfc** and the following meta data
+| Tag | Meta Data |
+| ------------- |-------------|
+| White Tag | check-in |
+| Blue Tag | check-out |
+| Yellow Tag | add-item:<orange's-variant-id>:2 |
+| Green Tag | add-item:<coffee's-variant-id>:1 |
 
 ## Demo Video ##
 ### Mobile Web ###
