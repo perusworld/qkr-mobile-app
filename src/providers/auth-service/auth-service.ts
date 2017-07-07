@@ -20,6 +20,7 @@ export class AuthServiceProvider {
   }
 
   /**
+   * TODO: Expiry check
    * hasAuthenticated
    */
   public hasAuthenticated() {
@@ -36,7 +37,7 @@ export class AuthServiceProvider {
         this.authToken = null;
         resolve(has);
       }).catch(err => {
-        resolve(false);
+        reject(err);
       });
     });
   }

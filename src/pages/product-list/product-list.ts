@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { QkrServiceProvider } from '../../providers/qkr-service/qkr-service';
+import { QkrCheckoutServiceProvider } from '../../providers/qkr-checkout-service/qkr-checkout-service';
 import { ConfigServiceProvider } from '../../providers/config-service/config-service';
-import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 import { CartPage } from '../cart/cart';
 
@@ -14,34 +13,14 @@ import { CartPage } from '../cart/cart';
 })
 export class ProductListPage {
 
-  private merchantId: string;
-  private outletId: string;
-  private menuId: string;
   public menu = <any>[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private qkr: QkrServiceProvider, private cfg: ConfigServiceProvider, private auth: AuthServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private qkrCheckout: QkrCheckoutServiceProvider, private cfg: ConfigServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductListPage');
-    this.loadProducts();
-  }
-
-  /**
-   * loadProducts
-   */
-  public loadProducts() {
-    this.qkr.merchants().
-      then(resp => {
-        this.merchantId = resp[0].id;
-        this.outletId = resp[0].outlets[0].id;
-        this.menuId = resp[0].outlets[0].prodGroupSummaries[0].id
-        return this.qkr.products(this.menuId);
-      }).then(resp => {
-        this.menu = resp;
-      }).catch(err => {
-        console.log(err);
-      });
+    this.menu = this.qkrCheckout.menu;
   }
 
   /**
@@ -50,15 +29,7 @@ export class ProductListPage {
   public addProduct(product: any) {
     this.cfg.presentLoading('Adding to cart').
       then(resp => {
-        if (resp) {
-          return this.qkr.addCart(this.auth.authToken, {
-            locatedScanId: this.menu.locatedScanId,
-            outletId: this.outletId,
-            purchaseNote: `Buying ${product.name}`,
-            quantity: 1,
-            variantId: product.variants[0].id
-          });
-        } else { throw 'Failed to initialize progress' }
+        if (resp) { return this.qkrCheckout.addToCart(product.variants[0].id, 1, `Buying ${product.name}`) } else { throw 'Failed to initialize progress' }
       }).then(resp => {
         return this.cfg.hideLoading();
       }).then(status => {
