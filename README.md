@@ -3,6 +3,12 @@ Uses the [node-qkr-api-server](https://github.com/perusworld/node-qkr-api-server
 
 If you are looking to call Qkr! APIs directly then head over to [node-qkr-api](https://github.com/perusworld/node-qkr-api)
  
+## Demo Videos ##
+
+Mobile Web | Android | Android - NFC |
+--- | --- | --- |
+[![qkr-mobile-app - Qkr Cart Checkout Demo Video](https://img.youtube.com/vi/_RvluBW2K8s/3.jpg)](https://youtu.be/_RvluBW2K8s) | [![qkr-mobile-app - Qkr Cart Checkout Demo Video - Android](https://img.youtube.com/vi/8gjkrQB-j3M/2.jpg)](https://youtu.be/8gjkrQB-j3M) | [![qkr-mobile-app - Qkr Cart Checkout Demo Video - Android - NFC](https://img.youtube.com/vi/0lRlHb4ZSR8/2.jpg)](https://youtu.be/0lRlHb4ZSR8) |
+
 ## Run ##
  * Start [node-qkr-api-server](https://github.com/perusworld/node-qkr-api-server)
  * set that as the API endpoint in [config-service.ts](./src/providers/config-service/config-service.ts), right now it is pointing to [http://localhost:3000/api/v1/](http://localhost:3000/api/v1/)
@@ -35,9 +41,3 @@ Tag | Meta Data |
 *Blue Tag* | `check-out` |
 *Yellow Tag* | `add-item:<orange's-variant-id>:2` |
 *Green Tag* | `add-item:<coffee's-variant-id>:1` |
-
-## Demo Videos ##
-
-Mobile Web | Android | Android - NFC |
---- | --- | --- |
-[![qkr-mobile-app - Qkr Cart Checkout Demo Video](https://img.youtube.com/vi/_RvluBW2K8s/3.jpg)](https://youtu.be/_RvluBW2K8s) | [![qkr-mobile-app - Qkr Cart Checkout Demo Video - Android](https://img.youtube.com/vi/8gjkrQB-j3M/2.jpg)](https://youtu.be/8gjkrQB-j3M) | [![qkr-mobile-app - Qkr Cart Checkout Demo Video - Android - NFC](https://img.youtube.com/vi/0lRlHb4ZSR8/2.jpg)](https://youtu.be/0lRlHb4ZSR8) |
